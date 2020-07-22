@@ -1,0 +1,30 @@
+---
+- name: lancement instance
+  hosts: host
+  tasks:
+  - name: Installer httpd
+    yum:
+      name: httpd
+      state: present
+
+  - name: Verification si httpd en execution
+    service:
+      name: httpd
+      state: started
+      enabled: yes
+
+  - name: Installer php
+    yum:
+      name: php
+      state: present
+
+
+  - name: Installer centreon
+    yum:
+      name: "{{ items }}"
+      state: installed
+    with_items:
+      - centreon-base-config-centreon-engine
+      - centreon
+    notify:
+      - restart httpd

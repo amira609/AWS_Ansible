@@ -1,0 +1,17 @@
+---
+- name: lance
+  hosts: localhost
+  connection: local
+  gatherfacts: False
+  tasks:
+  - name: lance instance
+    ec2:
+      key_name: mira
+      instance_type: t2.micro
+      image: ami-0e9089763828757e1
+      wait: yes
+      group: default
+      region: us-east-1
+      count: 1
+      vpc_subnet_id: subnet-fde470f3
+      assign_public_ip: yes
